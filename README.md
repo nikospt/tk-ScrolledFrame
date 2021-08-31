@@ -38,3 +38,5 @@ After all widgets have been added the scrolled frame, the scrolled frame needs t
 scrolledFrame.updateContent()
 scrolledFrame.container.grid() # or scrolledFrame.container.pack()
 ```
+## Notes
+This project is licensed under the terms of the MIT license.
