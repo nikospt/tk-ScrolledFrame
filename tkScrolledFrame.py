@@ -1,10 +1,13 @@
 import tkinter as tk
 class ScrolledFrame():
-    def __init__(self,parent,root, *args, **kwargs):
+    def __init__( self, parent, root, axis='y', *args, **kwargs):
         self.container = tk.Frame(parent)
         self.canvas = tk.Canvas( self.container, *args, **kwargs )
         self.content = tk.Frame(self.canvas)
-        self.scrollbar = tk.Scrollbar( self.container, orient='vertical', command=self.canvas.yview)
+        if axis == 'y' or axis == 'xy' or axis == 'yx' or axis == 'both':
+            self.yscrollbar = tk.Scrollbar( self.container, orient='vertical', command=self.canvas.yview)
+        if axis == 'x' or axis == 'xy' or axis == 'yx' or axis == 'both':
+            self.xscrollbar = tk.Scrollbar( self.container, orient='horizontal', command=self.canvas.xview)
         self.root = root
         self.canvas.create_window( (0,0), window=self.content, anchor='nw')
         self.BindMouseWheel(self.content)
@@ -14,9 +17,13 @@ class ScrolledFrame():
     def updateContent(self):
         self.content.update()
         self.bindChildren(self.content)
-        self.canvas.configure(yscrollcommand=self.scrollbar.set, scrollregion="0 0 0 %s" % self.content.winfo_height() )
+        self.canvas.configure(yscrollcommand=self.yscrollbar.set, scrollregion="0 0 0 %s" % self.content.winfo_height() )
+        print('check what scrollregion is')
+        self.canvas.configure(xscrollcommand=self.xscrollbar.set, scrollregion="0 0 %s 0" % self.content.winfo_width() )
+        self.yscrollbar.pack(side='right', fill='y')
+        self.xscrollbar.pack(side='bottom', fill='x')
         self.canvas.pack(side='left')
-        self.scrollbar.pack(side='right', fill='y')
+
 
     def BindMouseWheel(self,widget):
         if self.root.call('tk', 'windowingsystem') == 'x11':
