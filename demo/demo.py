@@ -19,8 +19,10 @@ for i in range(10):
     label[i].grid(sticky='ew') # or label[i].pack()
 
 # Make sure to update content and grid the container frame when finished adding widgets to the scrolledFrame
-scrolledFrame.updateContent()
+# scrolledFrame.updateContent() # This is no longer needed with a Map binding added to the class
 # scrolledFrame.container.grid()
-scrolledFrame.container.pack(side='bottom',fill='both')
+# scrolledFrame.container.pack(side='bottom',fill='both')
+# Can now call pack on the scrolledFrame object instead of containter member, which is more natural
+scrolledFrame.pack(side='bottom',fill='both') 
 
 root.mainloop()

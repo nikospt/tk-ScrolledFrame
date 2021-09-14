@@ -13,16 +13,33 @@ class ScrolledFrame():
         self.BindMouseWheel(self.content)
         self.BindMouseWheel(self.canvas)
         self.BindMouseWheel(self.container)
+        self.content.bind("<Map>",self.BindMap)
+
+    def BindMap(self,event):
+        # No Longer need to call update content.
+        # This bind will do it automatically
+        self.content.update()
+        self.bindChildren( self.content )
+        self.canvas.configure( yscrollcommand=self.yscrollbar.set, scrollregion="0 0 0 %s" % self.content.winfo_height() )
+        self.canvas.configure( xscrollcommand=self.xscrollbar.set, scrollregion="0 0 %s 0" % self.content.winfo_width() )
+        self.yscrollbar.pack( side='right',  fill='y' )
+        self.xscrollbar.pack( side='bottom', fill='x' )
+        self.canvas.pack( side='left' )
+
+    def grid(self,*args, **kwargs):
+        self.container.grid(*args,**kwargs)
+
+    def pack(self,*args, **kwargs):
+        self.container.pack(*args,**kwargs)
 
     def updateContent(self):
         self.content.update()
-        self.bindChildren(self.content)
-        self.canvas.configure(yscrollcommand=self.yscrollbar.set, scrollregion="0 0 0 %s" % self.content.winfo_height() )
-        print('check what scrollregion is')
-        self.canvas.configure(xscrollcommand=self.xscrollbar.set, scrollregion="0 0 %s 0" % self.content.winfo_width() )
-        self.yscrollbar.pack(side='right', fill='y')
-        self.xscrollbar.pack(side='bottom', fill='x')
-        self.canvas.pack(side='left')
+        self.bindChildren( self.content)
+        self.canvas.configure( yscrollcommand=self.yscrollbar.set, scrollregion="0 0 0 %s" % self.content.winfo_height() )
+        self.canvas.configure( xscrollcommand=self.xscrollbar.set, scrollregion="0 0 %s 0" % self.content.winfo_width() )
+        self.yscrollbar.pack( side='right',  fill='y' )
+        self.xscrollbar.pack( side='bottom', fill='x' )
+        self.canvas.pack( side='left' )
 
 
     def BindMouseWheel(self,widget):
