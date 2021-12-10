@@ -23,6 +23,6 @@ for i in range(10):
 # scrolledFrame.container.grid()
 # scrolledFrame.container.pack(side='bottom',fill='both')
 # Can now call pack on the scrolledFrame object instead of containter member, which is more natural
-scrolledFrame.pack(side='bottom',fill='both') 
+scrolledFrame.pack(side='bottom',fill='both')
 
 root.mainloop()
