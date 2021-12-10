@@ -1,6 +1,6 @@
 import tkinter as tk
 class ScrolledFrame():
-    def __init__( self, parent, root, axis='y', *args, **kwargs):
+    def __init__( self, parent, axis='y', *args, **kwargs):
         self.container = tk.Frame(parent)
         self.canvas = tk.Canvas( self.container, *args, **kwargs )
         self.content = tk.Frame(self.canvas)
@@ -8,7 +8,7 @@ class ScrolledFrame():
             self.yscrollbar = tk.Scrollbar( self.container, orient='vertical', command=self.canvas.yview)
         if axis == 'x' or axis == 'xy' or axis == 'yx' or axis == 'both':
             self.xscrollbar = tk.Scrollbar( self.container, orient='horizontal', command=self.canvas.xview)
-        self.root = root
+        self.root = parent.winfo_toplevel()
         self.canvas.create_window( (0,0), window=self.content, anchor='nw')
         self.BindMouseWheel(self.content)
         self.BindMouseWheel(self.canvas)
