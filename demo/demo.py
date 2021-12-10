@@ -11,7 +11,7 @@ title = tk.Label( root, text="Boundary Layer Calculator" )
 # title.grid(column=0, row=0, sticky='ew' , padx=5, pady=5 )
 title.pack(side='top', fill='both')
 
-scrolledFrame = ScrolledFrame(root, root, axis = 'xy')#, width=100, height=120)
+scrolledFrame = ScrolledFrame(root, axis = 'xy')#, width=100, height=120)
 label = []
 for i in range(10):
     # When adding widgets to the scrolled frame class, make sure they are added to the content object
