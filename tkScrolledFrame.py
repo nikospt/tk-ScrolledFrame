@@ -14,9 +14,11 @@ class ScrolledFrame():
             self.xscrollbar = tk.Scrollbar( self.container, orient='horizontal', command=self.canvas.xview)
         self.root = parent.winfo_toplevel()
         self.canvas.create_window( (0,0), window=self.content, anchor='nw')
-        self.BindMouseWheel(self.content)
-        self.BindMouseWheel(self.canvas)
-        self.BindMouseWheel(self.container)
+        if self.yscrollbar != None:
+            # Dont bind scroll wheel unless y is an axis of this scrollframe
+            self.BindMouseWheel(self.content)
+            self.BindMouseWheel(self.canvas)
+            self.BindMouseWheel(self.container)
         self.content.bind("<Map>",self.BindMap)
         self.root.bind("<Configure>", self.resize)
 
@@ -24,7 +26,10 @@ class ScrolledFrame():
         # No Longer need to call update content.
         # This bind will do it automatically
         self.content.update()
-        self.bindChildren( self.content )
+
+        if self.yscrollbar != None:
+            # Dont bind scroll wheel unless y is an axis of this scrollframe
+            self.bindChildren( self.content)
 
         if self.yscrollbar != None:
             self.yscrollbar.pack( side='right',  fill='y' )
@@ -40,7 +45,9 @@ class ScrolledFrame():
 
     def updateContent(self):
         self.content.update()
-        self.bindChildren( self.content)
+        if self.yscrollbar != None:
+            # Dont bind scroll wheel unless y is an axis of this scrollframe
+            self.bindChildren( self.content)
 
         if self.yscrollbar != None:
             self.yscrollbar.pack( side='right',  fill='y' )
